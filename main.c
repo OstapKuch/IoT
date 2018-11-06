@@ -1,3 +1,4 @@
+//Vasya
 #include <stdio.h>
 #include <math.h>
 //int mas[5][5] = {{3,   5,   9,   24, 2},
