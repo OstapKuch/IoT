@@ -1,77 +1,84 @@
 //Vasya
 #include <stdio.h>
 #include <math.h>
-//int mas[5][5] = {{3,   5,   9,   24, 2},
-//            {-23, 0,   37,  29, 10},
-//            {0,   1,   4,   -2, -5},
-//            {-5,  -83, -74, 82, -1},
-//            {11,  88,  -5,  81, -39}};
-int x, i, scan, elem, z = 1, mas[5][5];
-int sort(), f(), print(), F();
+
+int Matrix[5][5];
+int ScanningMatrix(), InsertionSort(), SumUnderMainDiagonal(), PrintMatrix(), AverageGeometricSum();
 
 
 int main() { //scaning array
-    for (x = 0; x <= 4; x++) {
-        for (int i = 0; i <= 4; i++) {
-            scanf("%i", &mas[x][i]);
-        }
-    }
-    sort();
+    ScanningMatrix();
+    InsertionSort();
+    PrintMatrix();
+    SumUnderMainDiagonal();
 }
 
-int sort() { //sorting array
-    for (x = 0; x <= 4; x++) {
-        for (int i = 1; i <= 4; i++) {
-            int g = mas[x][i];
-            for(int y = i-1; y >= 0; y--) {
-                if(mas[x][y] < g){
-                    mas[x][y+1] = mas[x][y];
-                    if(y == 0) {
-                        mas[x][y] = g;
+int ScanningMatrix() { 
+    
+    for (row = 0; row <= 4; row++) {
+        for (int column = 0; column <= 4; column++) {
+            scanf("%i", &Matrix[row][column]);
+        }
+    }
+}
+int InsertionSort() { 
+    for (int row = 0; row <= 4; row++) {
+        
+        for (int column = 1; column <= 4; column++) {
+            
+            int teporaryElement = Matrix[row][column];            
+            for(int temporaryColumnIndex = column - 1; column >= 0; column--) {
+              
+                if(Matrix[row][temporaryColumnIndex] < teporaryElement){
+                    
+                    Matrix[row][temporaryColumnIndex+1] = Matrix[row][temporaryColumnIndex];      
+                    if(temporaryColumnIndex == 0) {
+                        
+                        Matrix[row][temporaryColumnIndex] = teporaryElement;
                     }
                 }
-
                 else {
-                    mas[x][y+1] = g;
+                    
+                    Matrix[row][temporaryColumnIndex+1] = teporaryElement;
                     break;
                 }
 
             }
         }
     }
-    print();
-    f();
-
 }
-int print(){ //printing array
-    for(x=0; x<=4; x++) {
+
+int PrintMatrix(){ 
+    for(int row=0; row<=4; row++) {
         printf("\n");
-        for(i=0; i<=4; i++) {
-            printf("    %i\t", mas[x][i]);
+        for(int column=0; i<=4; column++) {
+            printf("    %i\t", Matrix[row][column]);
       }
     }
 }
-int f() { // calculating element sum of each column under main diagonal
-    int sumgeom=1, sumel=0;
-    for(x=0; x<=4; x++) {
-        int sum = 1;
-        for(i=0; i<=4; i++) {
-            if(x<i) {
-                for(int t = x+1; t<=4; t++){
-                    sum = sum + mas[t][x];
+
+// calculating element sum of each column under main diagonal
+int SumUnderMainDiagonal() { 
+    int SumGeometric=1, ElementsQuantity=0;
+    for(int row=0; row<=4; row++) {
+        int SumOfElements = 1;
+        for(int column=0; column<=4; column++) {
+            if(row<column) {
+                for(int temporaryIndex = row+1; temporaryIndex<=4; temporaryIndex++){
+                    SumOfElements = SumOfElements + Matrix[temporaryIndex][row];
                 }
-                i = 4;
-                sumgeom *= fabs(sum);
-                sumel+=1;
-                printf("\n sum f(a) = %d ", sum);
+                column = 4;
+                SumGeometric *= fabs(SumOfElements);
+                ElementsQuantity += 1;
+                printf("\n sum f(a) = %d ", SumOfElements);
             }
         }
     }
-    F(sumgeom, sumel);
+    AverageGeometricSum(SumGeometric, SumOfElements);
 }
-
-int F(x1, y1) { // calculating avarage geometric sum
-    double result = pow(x1, 1.0/y1);
+// calculating avarage geometric sum
+int AverageGeometricSum(SumGeometric, SumOfElements) { 
+    double result = pow(SumGeometric, 1.0/SumOfElements);
     printf("\nresult %f", result);
 }
 
