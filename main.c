@@ -27,12 +27,9 @@ int scanMatrix() {
 
 int matrixInsertionSort() {
     for (int row = 0; row < MATRIX_SIZE; row++) {
-
         for (int column = 1; column < MATRIX_SIZE; column++) {
-
             int temporaryElement = matrix[row][column];
             for (int temporaryColumnIndex = column - 1; temporaryColumnIndex >= 0; temporaryColumnIndex--) {
-
                 if (matrix[row][temporaryColumnIndex] < temporaryElement) {
                     matrix[row][temporaryColumnIndex + 1] = matrix[row][temporaryColumnIndex];
                     if (temporaryColumnIndex == 0) {
