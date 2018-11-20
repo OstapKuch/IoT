@@ -6,16 +6,16 @@
 
 int matrix[MATRIX_SIZE][MATRIX_SIZE];
 
-int scanningMatrix(), matrixInsertionSort(), sumUnderMainDiagonal(), printMatrixIntoConsole(), averageGeometricSum();
+int scanMatrix(), matrixInsertionSort(), sumUnderMainDiagonal(), printMatrixIntoConsole(), averageGeometricSum();
 
 int main() { //scaning array
-    scanningMatrix();
+    scanMatrix();
     matrixInsertionSort();
     printMatrixIntoConsole();
     sumUnderMainDiagonal();
 }
 
-int scanningMatrix() {
+int scanMatrix() {
 
     for (int row = 0; row < MATRIX_SIZE; row++) {
         for (int column = 0; column < MATRIX_SIZE; column++) {
