@@ -2,44 +2,44 @@
 #include <stdio.h>
 #include <math.h>
 
-int Matrix[5][5];
-int ScanningMatrix(), InsertionSort(), SumUnderMainDiagonal(), PrintMatrix(), AverageGeometricSum();
+#define MATRIX_SIZE 5
 
+int matrix[MATRIX_SIZE][MATRIX_SIZE];
+
+int scanningMatrix(), matrixInsertionSort(), sumUnderMainDiagonal(), printMatrixIntoConsole(), averageGeometricSum();
 
 int main() { //scaning array
-    ScanningMatrix();
-    InsertionSort();
-    PrintMatrix();
-    SumUnderMainDiagonal();
+    scanningMatrix();
+    matrixInsertionSort();
+    printMatrixIntoConsole();
+    sumUnderMainDiagonal();
 }
 
-int ScanningMatrix() { 
-    
-    for (row = 0; row <= 4; row++) {
-        for (int column = 0; column <= 4; column++) {
-            scanf("%i", &Matrix[row][column]);
+int scanningMatrix() {
+
+    for (int row = 0; row < MATRIX_SIZE; row++) {
+        for (int column = 0; column < MATRIX_SIZE; column++) {
+            scanf("%i", &matrix[row][column]);
         }
     }
 }
-int InsertionSort() { 
-    for (int row = 0; row <= 4; row++) {
-        
-        for (int column = 1; column <= 4; column++) {
-            
-            int teporaryElement = Matrix[row][column];            
-            for(int temporaryColumnIndex = column - 1; column >= 0; column--) {
-              
-                if(Matrix[row][temporaryColumnIndex] < teporaryElement){
-                    
-                    Matrix[row][temporaryColumnIndex+1] = Matrix[row][temporaryColumnIndex];      
-                    if(temporaryColumnIndex == 0) {
-                        
-                        Matrix[row][temporaryColumnIndex] = teporaryElement;
+
+
+int matrixInsertionSort() {
+    for (int row = 0; row < MATRIX_SIZE; row++) {
+
+        for (int column = 1; column < MATRIX_SIZE; column++) {
+
+            int temporaryElement = matrix[row][column];
+            for (int temporaryColumnIndex = column - 1; temporaryColumnIndex >= 0; temporaryColumnIndex--) {
+
+                if (matrix[row][temporaryColumnIndex] < temporaryElement) {
+                    matrix[row][temporaryColumnIndex + 1] = matrix[row][temporaryColumnIndex];
+                    if (temporaryColumnIndex == 0) {
+                        matrix[row][temporaryColumnIndex] = temporaryElement;
                     }
-                }
-                else {
-                    
-                    Matrix[row][temporaryColumnIndex+1] = teporaryElement;
+                } else {
+                    matrix[row][temporaryColumnIndex + 1] = temporaryElement;
                     break;
                 }
 
@@ -48,37 +48,38 @@ int InsertionSort() {
     }
 }
 
-int PrintMatrix(){ 
-    for(int row=0; row<=4; row++) {
+int printMatrixIntoConsole() {
+    for (int row = 0; row < MATRIX_SIZE; row++) {
         printf("\n");
-        for(int column=0; i<=4; column++) {
-            printf("    %i\t", Matrix[row][column]);
-      }
+        for (int column = 0; column < MATRIX_SIZE; column++) {
+            printf("    %i\t", matrix[row][column]);
+        }
     }
 }
 
-// calculating element sum of each column under main diagonal
-int SumUnderMainDiagonal() { 
-    int SumGeometric=1, ElementsQuantity=0;
-    for(int row=0; row<=4; row++) {
-        int SumOfElements = 1;
-        for(int column=0; column<=4; column++) {
-            if(row<column) {
-                for(int temporaryIndex = row+1; temporaryIndex<=4; temporaryIndex++){
-                    SumOfElements = SumOfElements + Matrix[temporaryIndex][row];
+// calculating elements sum of each column under the main diagonal
+int sumUnderMainDiagonal() {
+    int sumGeometric = 1, elementsQuantity = 0;
+    for (int row = 0; row < MATRIX_SIZE; row++) {
+        int sumOfElements = 1;
+        for (int column = 0; column < MATRIX_SIZE; column++) {
+            if (row < column) {
+                for (int temporaryIndex = row + 1; temporaryIndex < MATRIX_SIZE; temporaryIndex++) {
+                    sumOfElements = sumOfElements + matrix[temporaryIndex][row];
                 }
-                column = 4;
-                SumGeometric *= fabs(SumOfElements);
-                ElementsQuantity += 1;
-                printf("\n sum f(a) = %d ", SumOfElements);
+                column = MATRIX_SIZE - 1;
+                sumGeometric *= fabs(sumOfElements);
+                elementsQuantity += 1;
+                printf("\n sum f(a) = %d ", sumOfElements);
             }
         }
     }
-    AverageGeometricSum(SumGeometric, SumOfElements);
+    averageGeometricSum(sumGeometric, elementsQuantity);
 }
-// calculating avarage geometric sum
-int AverageGeometricSum(SumGeometric, SumOfElements) { 
-    double result = pow(SumGeometric, 1.0/SumOfElements);
-    printf("\nresult %f", result);
+
+// calculating average geometric sum
+int averageGeometricSum(sumGeometric, elementsQuantity) {
+    double averageGeometricSum = pow(sumGeometric, 1.0 / elementsQuantity);
+    printf("\nresult %f", averageGeometricSum);
 }
 
